@@ -1,0 +1,288 @@
+---
+title: "DATA606 WEEK TWO Homework"
+author: "John K. Hancock"
+date: "September 8, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(VennDiagram)
+```
+
+
+###WEEK TWO HOMEWORK ASSIGNMENT
+
+####2.6 Dice rolls. If you roll a pair of fair dice, what is the probability of
+
+(a) getting a sum of 1?
+(b) getting a sum of 5?
+(c) getting a sum of 12?
+
+Answers:
+(a) 0%
+(b) 4/36 or 11%
+(c) 1/36 or 2.77%
+
+
+
+###WEEK TWO HOMEWORK ASSIGNMENT
+
+2.6 Dice rolls. If you roll a pair of fair dice, what is the probability of
+
+(a) getting a sum of 1?
+(b) getting a sum of 5?
+(c) getting a sum of 12?
+
+Answers:
+(a) 0%
+(b) 4/36 or 11%
+(c) 1/36 or 2.77%
+
+2.8 Poverty and language. The American Community Survey is an ongoing survey that
+provides data every year to give communities the current information they need to plan investments
+and services. The 2010 American Community Survey estimates that 14.6% of Americans live below
+the poverty line, 20.7% speak a language other than English (foreign language) at home, and 4.2%
+fall into both categories.
+
+(a) Are living below the poverty line and speaking a foreign language at home disjoint?
+Answer: No. There are overlaps between the two groups as evidence by the fact that 4.2% are in both.
+
+(b) Draw a Venn diagram summarizing the variables and their associated probabilities.
+
+```{r}
+grid.newpage()
+draw.pairwise.venn(area1 = .146, area2 = .207, cross.area = .042, category = c("English Poor", 
+    "Foreign Language"),scaled=TRUE)
+```
+
+
+
+(c) What percent of Americans live below the poverty line and only speak English at home?
+Answer: P(Americans in Poverty) - P(Americans in Poverty and Speak Foreign Language) = 
+        14.6% - 4.2% = 10.4%
+
+(d) What percent of Americans live below the poverty line or speak a foreign language at home?
+Answer: P(Americans in Poverty) + (P(Speak Foreign Language) - P(Americans in Poverty and Speak Foreign Language)) = 
+        14.6% + (20.7% - 4.2%) = 31.1%
+
+(e) What percent of Americans live above the poverty line and only speak English at home?
+Answer: (P(All Americans) - P(Americans in Poverty and Speak Only English))  - P(Speak Foreign Language)) = 
+        (100% - 10.4%) - 20.7% = 68.9%
+
+(f) Is the event that someone lives below the poverty line independent of the event that the person
+speaks a foreign language at home?
+
+Answer: To test independence, the product of the probability that someone living in poverty and that they speak a foreign language must equal the probability of someone living in poverty and speaks a foreign which is 4.2%
+
+P(American in Poverty) = .146, P(Speaks Foreign Language) = .207 
+=.146*.207
+=.030 or 3% which does not equal 4.2% so they're not independent. 
+
+
+2.20 Assortative mating. Assortative mating is a nonrandom mating pattern where individuals
+with similar genotypes and/or phenotypes mate with one another more frequently than what would
+be expected under a random mating pattern. Researchers studying this topic collected data on
+eye colors of 204 Scandinavian men and their female partners. The table below summarizes the
+results. For simplicity, we only include heterosexual relationships in this exercise.
+
+
+ANSWERS
+
+(a) P(Male with Blue Eyes) + P(Female with Blue Eyes) - P(Male Blue Eyes and Partner Blue Eyes) / Total Population
+
+= .706 0r 71%
+
+```{r}
+(108 + 114 -78)/ 204
+
+```
+
+
+(b) (P(Male Blue Eyes and Partner Blue Eyes) / Total Population) / P(Male with Blue Eyes) / Total Population
+= .684 or 68.4%
+
+```{r}
+(78/204) / (114/204)
+```
+
+
+(c) (P(Male Brown Eyes and Partner Blue Eyes) / Total Population) / P(Male with Brown Eyes) / Total Population
+= .352 or 35.2%
+
+```{r}
+(19/204) / (54/204)
+```
+
+(P(Male Green Eyes and Partner Blue Eyes) / Total Population) / P(Male with Green Eyes) / Total Population
+=.305 or 30.5%
+
+```{r}
+(11/204) / (36/204)
+```
+
+(d)To test independence, the product of the probability of male respondents with the same eye color of their partner should equal the probability of male respondents with different eye color than their partners. 
+
+We can see that the probability of males and their partners with the same eye color is 53% and the probability of males with different eye color of their partners is 47%. Although the probabilities are close, they do not equal each other and are not independent.
+
+
+```{r}
+(108/204) 
+
+
+```
+
+```{r}
+96/204
+```
+
+2.30 Books on a bookshelf. The table below shows the distribution of books on a bookcase
+based on whether they are nonfiction or fiction and hardcover or paperback.
+
+(a)Find the probability of drawing a hardcover book first then a paperback fiction book second
+when drawing without replacement.
+ANSWER:
+
+P(Hardcover Book Selected First) = 28/95
+P(Paperback Fiction Book Selected Second) = 59/94
+There's an 18.4% probability of selecting a paperback fiction if first book was hardcover
+
+```{r}
+(28/95)*(59/94)
+```
+
+(b) Determine the probability of drawing a fiction book first and then a hardcover book second,
+when drawing without replacement.
+
+ANSWER
+There are two possible events. First is the probability that a hardcover fiction book was NOT selected first leaving 28 hardcover books to be chosen on the 2nd selection.  Second is the probability that a hard cover fiction book WAS selected first leaving only 27 hardcover books available to be chosen on the 2nd selection.  These two probabilities are then added for a probability of 22.4%
+
+P(Fiction Book Not Hardcover Selected First) = 59/95
+P(Hardcover Book Selected Second)  = 28/94 
++
+P(Fiction Hardcover Book Selected First) = 13/95
+P(Harcover Book Selected Second Given that it was selected first) = 27/94
+
+
+```{r}
+((59/95)*(28/94))+((27/94)*(13/95))
+```
+
+(c) Calculate the probability of the scenario in part (b), except this time complete the calculations
+under the scenario where the first book is placed back on the bookcase before randomly drawing
+the second book
+
+ANSWER
+With replacement, then the probabilities are:
+
+P(Fiction book selected first) = 72/95
+P(Hardcover book selected second) = 28/95
+
+```{r}
+(72/95)*(28/95)
+```
+
+The probabilities are similar because there's a large sample size. 
+
+
+2.38 Baggage fees. An airline charges the following baggage fees: $25 for the first bag and
+$35 for the second. Suppose 54% of passengers have no checked luggage, 34% have one piece of
+checked luggage and 12% have two pieces. We suppose a negligible portion of people check more
+than two bags.
+
+
+(a) Build a probability model, compute the average revenue per passenger, and compute the
+corresponding standard deviation.
+
+ANSWER:
+
+
+
+
+```{r}
+price <- c(0,25,60)
+percent <- c(.54,.34,.12)
+exp_value = price*percent
+exp_value <- c(exp_value)
+
+```
+
+```{r}
+
+
+model <- matrix(c(price, percent, exp_value),ncol=3,byrow=TRUE)
+colnames(model) <- c("Zero","One","Two")
+rownames(model) <- c("x","percent","exp_val")
+model <- as.table(model)
+model
+```
+
+```{r}
+avg_rev_person <- sum(model[c(3),c(1,2,3)])
+avg_rev_person
+```
+The average revenue per passenger is $15.70. 
+
+```{r}
+price_minus_avg <- price-avg_rev_person
+price_Variance<- (price_minus_avg)^2
+percentage_variance <-price_Variance*percent
+
+```
+
+
+```{r}
+model2 <- matrix(c(price, percent, exp_value, price_minus_avg,price_Variance, percentage_variance),ncol=3,byrow=TRUE)
+colnames(model2) <- c("Zero","One","Two")
+rownames(model2) <- c("x","P(X=x)","x*P(X)","x-u","(x-u)^2", "(x-u)^2*P(X=x)")
+model2 <- as.table(model2)
+model2
+```
+```{r}
+std_dev <-sum(percentage_variance)
+sqrt(std_dev)
+```
+The standard deviation in average revenue per passenger is $19.95
+
+
+(b) About how much revenue should the airline expect for a flight of 120 passengers? With what
+standard deviation? Note any assumptions you make and if you think they are justified.
+
+Assuming that each checked bag is independent for each passenger, the expected revenue of the 120 passengers is $1,884.00, and the standard deviation is $218. 
+```{r}
+Exp_rev_120 = avg_rev_person * 120
+Exp_std_dev = sqrt(120 *sum(percentage_variance))
+print(Exp_rev_120)
+print(Exp_std_dev)
+```
+
+2.44 Income and gender. The relative frequency table below displays the distribution of
+annual total personal income (in 2009 inflation-adjusted dollars) for a representative sample of
+96,420,486 Americans. These data come from the American Community Survey for 2005-2009.
+This sample is comprised of 59% males and 41% females.69
+
+
+a.) Income bracket of $35,000 to $49,999 has the largest number of observations at 21%. Followed by the bracket $25,0000 to $34,999 at 18.3%. The lowest number of observations is $9,999 or less with only 2.2% of the observations.  The distribution is bi-modal as there is a second peak at the bracket, $100,000 or more in addition to the peak at the bracket $35,000 to $49,999. In general, the frequency of observations grows from 0 to $49,999. Then, it declines, but starts to increase again beginning at $75,000 or more. 
+
+b.) The probability that someone makes less than $50,0000 a year is 62.2%.  We can see that by adding up the distributions between 0 and $49,999.
+
+```{r}
+prob <- .212 + .183 + .158 + .047 + .022
+prob
+
+```
+
+
+
+
+c.) Assuming independence and using the multiplication rule, we see that the probability that someone is female and makes less than $50,000 a year is 25.50% 
+
+```{r}
+.622*.41
+```
+
+d.) The given statistic that 71% of females make $50,000 or less is not correct based on the analysis in part c.  This means that gender and income are not independent.  
+

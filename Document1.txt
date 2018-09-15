@@ -1,0 +1,11 @@
+C:/Users/jkhan/Documents/GitHub/DATA-606-Statistics-and-Probability-for-Data-Analytics/Week Two Labs and Assignments
+
+
+install.packages(c('R.rsp','devtools'))
+library(devtools)
+devtools::install_github('jbryer/DATA606', force=TRUE, build_vignettes= TRUE)
+library(DATA606)
+setwd("C:/Users/jkhan/Documents/GitHub/DATA-606-Statistics-and-Probability-for-Data-Analytics/Week Two Labs and Assignments")
+vignette(package = 'DATA606')
+
+startLab("Lab1")
