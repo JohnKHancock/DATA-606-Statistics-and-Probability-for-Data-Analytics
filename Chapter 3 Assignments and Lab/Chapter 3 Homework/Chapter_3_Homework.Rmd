@@ -9,4 +9,134 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+```{r}
+library('DATA606')
+library('data.table')
+```
+
+####Chapter 3 Homework
+
+##3.2 Area under the curve, Part II. What percent of a standard normal distribution
+N(μ =0,! = 1) is found in each region? Be sure to draw a graph.
+
+(a) Z > −1.13 
+
+The area under the curve where the Z score is greater than -1.13 is 0.87. Using the complement Probability 1-P. 
+```{r}
+1-0.1292
+```
+
+
+
+```{r}
+normalPlot(mean = 0, sd = 1, bounds = c(-1.13, 5), tails = FALSE)
+
+```
+(b) Z < 0.18
+The area under the curve where the Z score is less than 0.18 is .5714
+```{r}
+normalPlot(mean = 0, sd = 1, bounds = c(-5, 0.18), tails = FALSE)
+```
+
+
+(c) Z > 8
+The area under the curve where the Z score is greater than 8 is 0.  Since all Z greater than or equal to 3.50, the probability is greater than or equal to 0.9998, and using the complement rule, 1-1= 0.
+```{r}
+normalPlot(mean = 0, sd = 1, bounds = c(0, 0), tails = FALSE)
+```
+
+(d) |Z| < 0.5
+
+Can be re-written as -.5 < z > .5 =  P(Z<.5)-P(Z>-.5)  The area under the curve is 0.383
+
+```{r}
+0.6915-0.3085
+```
+```{r}
+normalPlot(mean = 0, sd = 1, bounds = c(-.5, .5), tails = FALSE)
+```
+##3.4 Triathlon times, Part I. In triathlons, it is common for racers to be placed into age
+and gender groups. Friends Leo and Mary both completed the Hermosa Beach Triathlon, where
+Leo competed in the Men, Ages 30 - 34 group while Mary competed in the Women, Ages 25 -
+29 group. Leo completed the race in 1:22:28 (4948 seconds), while Mary completed the race in
+1:31:53 (5513 seconds). Obviously Leo finished faster, but they are curious about how they did
+within their respective groups. Can you help them? Here is some information on the performance
+of their groups:
+
+• The finishing times of the Men, Ages 30 - 34 group has a mean of 4313 seconds with a
+standard deviation of 583 seconds.
+
+• The finishing times of the Women, Ages 25 - 29 group has a mean of 5261 seconds with a
+standard deviation of 807 seconds.
+
+• The distributions of finishing times for both groups are approximately Normal.
+
+Remember: a better performance corresponds to a faster finish.
+(a) Write down the short-hand for these two normal distributions.
+###Answer
+For men, N(u=4313, sd=583)
+For women, N(u=5261, sd=807)
+
+(b) What are the Z-scores for Leo’s and Mary’s finishing times? What do these Z-scores tell you?
+###Answer
+Leo's z-score is 1.09
+```{r}
+(4948-4313) / 583
+```
+Mary's z-score is 0.312
+```{r}
+(5513-5261) / 807
+```
+The z-scores show the number of standard deviations either above or below the mean. 
+
+
+(c) Did Leo or Mary rank better in their respective groups? Explain your reasoning.
+###Answer
+We see that Leo finished better than Mary did in his group than she did within her's. Leo was more than a full standard deviation above the mean while Mary was only 1/3 above the mean.
+
+(d) What percent of the triathletes did Leo finish faster than in his group?
+###Answer
+Leo finished faster than 86.21% of the runners while 
+
+(e) What percent of the triathletes did Mary finish faster than in her group?
+###Answer
+Mary finished faster than 62.17% of the runners in her group.
+
+(f) If the distributions of finishing times are not nearly normal, would your answers to parts
+(b) - (e) change? Explain your reasoning.
+Yes. If the data was not nearly normal, then the deviations from the mean would
+
+##3.18 Heights of female college students. Below are heights of 25 female college students.
+(a) The mean height is 61.52 inches with a standard deviation of 4.58 inches. Use this information
+to determine if the heights approximately follow the 68-95-99.7% Rule.
+###Answer
+Yes, the below calculations show that the data follows the 68-95-99.7% Rule or the Empirical Rule. 
+
+```{r}
+data =c(54,55,56,56,57,58,58,59,60,60,60,61,61,62,62,63,63,63,64,65,65,67,67,69,73)
+
+
+one_sd<-data[between(data,(mean(data)-sd(data)), (mean(data)+sd(data)))]
+length(one_sd) / length(data)	 
+
+```
+
+
+```{r}
+two_sd<-data[between(data,(mean(data)-2*sd(data)), (mean(data)+2*sd(data)))]
+length(two_sd) / length(data)
+```
+```{r}
+three_sd<-data[between(data,(mean(data)-3*sd(data)), (mean(data)+3*sd(data)))]
+length(three_sd) / length(data)
+```
+
+
+(b) Do these data appear to follow a normal distribution? Explain your reasoning using the graphs
+provided below.
+
+###Answer
+Yes. The grpahs show a unimodal distribution with the highest bar being in the middle of the graph.
+
+
 

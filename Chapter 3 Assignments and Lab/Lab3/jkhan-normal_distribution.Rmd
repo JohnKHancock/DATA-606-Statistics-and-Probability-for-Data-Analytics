@@ -7,6 +7,11 @@ output:
     css: ./lab.css
 ---
 
+```{r}
+library('DATA606') 
+```
+
+
 In this lab we'll investigate the probability distribution that is most central
 to statistics: the normal distribution.  If we are confident that our data are 
 nearly normal, that opens the door to many powerful statistical methods.  Here 
@@ -46,6 +51,18 @@ fdims <- subset(bdims, sex == 0)
 
 1.  Make a histogram of men's heights and a histogram of women's heights.  How 
     would you compare the various aspects of the two distributions?
+    
+###Answer
+Both plots are nearly normal in that they're both unimodal, symmetric with a majority of the observations at the center of the plots. 
+
+```{r}
+hist(mdims$hgt, breaks=50, col='red')
+```
+```{r}
+hist(mdims$hgt, breaks = 50, col='blue')
+```
+
+
 
 ## The normal distribution
 
@@ -81,6 +98,7 @@ hist(fdims$hgt, probability = TRUE)
 x <- 140:190
 y <- dnorm(x = x, mean = fhgtmean, sd = fhgtsd)
 lines(x = x, y = y, col = "blue")
+
 ```
 
 After plotting the density histogram with the first command, we create the x- 
@@ -98,6 +116,9 @@ the histogram function: `ylim = c(0, 0.06)`.
 
 2.  Based on the this plot, does it appear that the data follow a nearly normal 
     distribution?
+    
+###Answer
+Yes.  
 
 
 ## Evaluating the normal distribution
@@ -138,6 +159,15 @@ as well as its normal probability plot.
 3.  Make a normal probability plot of `sim_norm`.  Do all of the points fall on 
     the line?  How does this plot compare to the probability plot for the real 
     data?
+    
+###Answer:
+The points largely fall on the line except for a few data points on the higher end. Compared to the plot for the real data, the majority of the points fit either directly on the line or very close to it. 
+    
+```{r}
+qqnorm(sim_norm)
+qqline(sim_norm)
+```
+
 
 Even better than comparing the original plot to a single plot generated from a 
 normal distribution is to compare it to many more plots using the following 
@@ -150,9 +180,20 @@ qqnormsim(fdims$hgt)
 4.  Does the normal probability plot for `fdims$hgt` look similar to the plots 
     created for the simulated data?  That is, do plots provide evidence that the
     female heights are nearly normal?
+###Answer
+Yes. The plots for `fdims$hgt` and the simulations share the same main characteristics where the majority of the points lie directly on the line with only a few points on the end lie off the line. 
+
 
 5.  Using the same technique, determine whether or not female weights appear to 
     come from a normal distribution.
+###Answer    
+Yes. The plots for `fdims$wgt` and the simulations share the same main characteristics where the majority of the points lie directly on the line with only a few points on the end lie off the line.  Therefore,`fdims$wgtt` follows a normal distribution.   
+ 
+    
+```{r}
+qqnormsim(fdims$wgt)
+```
+
 
 ## Normal probabilities
 
@@ -176,6 +217,14 @@ this is done in one step with the function `pnorm`.
 ```{r pnorm, eval=TRUE}
 1 - pnorm(q = 182, mean = fhgtmean, sd = fhgtsd)
 ```
+
+```{r}
+1 - 0.004434387
+
+fhgtmean
+
+```
+
 
 Note that the function `pnorm` gives the area under the normal curve below a 
 given value, `q`, with a given mean and standard deviation.  Since we're 
@@ -201,6 +250,36 @@ theoretical probabilities will be.
     as the empirical distribution (four probabilities in all).  Which variable,
     height or weight, had a closer agreement between the two methods?
 
+A. What is the probability that a randomly chosen woman is shorter than 150 cm?
+
+```{r}
+pnorm(q = 150, mean = fhgtmean, sd = fhgtsd)
+sum(fdims$hgt < 150) / length(fdims$hgt)
+```
+
+B. What is the probability that a randomly chosen chosen woman weighs between 51 and 70 kg? 
+
+```{r}
+fwgtmean <- mean(fdims$wgt)
+fwgtsd   <- sd(fdims$wgt)
+
+lower_bound<-pnorm(q = 51, mean = fwgtmean, sd = fwgtsd)
+upper_bound<-pnorm(q = 70, mean = fwgtmean, sd = fwgtsd)
+
+lower_bound
+upper_bound
+
+upper_bound- lower_bound
+
+```
+Using the empirical distribution
+
+```{r}
+length(fdims$wgt[fdims$wgt >= 51 & fdims$wgt <= 70]) / length(fdims$wgt)
+```
+
+Both methods show that 68% of women are within one standard deviation(9.61 Kg) of the mean weight(60.60 Kg).  Further proof that the data is normally distributed.
+
 * * *
 
 ## On Your Own
@@ -213,25 +292,78 @@ theoretical probabilities will be.
     generate the plots in R to check.
 
     **a.** The histogram for female biiliac (pelvic) diameter (`bii.di`) belongs
-    to normal probability plot letter ____.
-
+    to normal probability plot letter B.
+    
+```{r}
+qqnorm(fdims$bii.di)
+qqline(fdims$bii.di)
+```
     **b.** The histogram for female elbow diameter (`elb.di`) belongs to normal 
-    probability plot letter ____.
+    probability plot letter C.
+
+    
+```{r}
+qqnorm(fdims$elb.di)
+qqline(fdims$elb.di)
+```
+    
 
     **c.** The histogram for general age (`age`) belongs to normal probability 
-    plot letter ____.
+    plot letter D.
+  
+  
+```{r}
+qqnorm(bdims$age)
+qqline(bdims$age)
+```
+
 
     **d.** The histogram for female chest depth (`che.de`) belongs to normal 
-    probability plot letter ____.
+    probability plot letter A.
+    
+    
+```{r}
+qqnorm(fdims$che.de)
+qqline(fdims$che.de)
+
+```
+
+
+
 
 -   Note that normal probability plots C and D have a slight stepwise pattern.  
     Why do you think this is the case?
+    
+The D plot for age contains discrete numerical variables. Age would be recorded as integers. It's a similar situation with the C plot, where the values are nearly discrete.
 
 -   As you can see, normal probability plots can be used both to assess 
     normality and visualize skewness.  Make a normal probability plot for female 
     knee diameter (`kne.di`).  Based on this normal probability plot, is this 
     variable left skewed, symmetric, or right skewed?  Use a histogram to confirm 
     your findings.
+
+###Answer
+The plot shows that the variable is right skewed as the data points move about the line at higher values.  The histogram confirms this finding. The histogram plot is unimodal where the highest values are below the mean. 
+
+```{r}
+qqnorm(fdims$kne.di)
+qqline(fdims$kne.di)
+```
+    
+```{r}
+fknedimean = mean(fdims$kne.di)
+fknedisd = 	mean(fdims$kne.di)
+hist(fdims$kne.di, probability = TRUE)
+x <- 140:190
+y <- dnorm(x = x, mean = fknedimean, sd = fknedisd )
+lines(x = x, y = y, col = "blue")
+```
+ 
+ 
+ 
+ 
+ 
+ ###Answer
 
 
 ![histQQmatch](more/histQQmatch.png)
@@ -242,3 +374,6 @@ This is a product of OpenIntro that is released under a
 This lab was adapted for OpenIntro by Andrew Bray and Mine &Ccedil;etinkaya-Rundel
 from a lab written by Mark Hansen of UCLA Statistics.
 </div>
+
+
+
