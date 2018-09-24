@@ -360,11 +360,6 @@ lines(x = x, y = y, col = "blue")
 ```
  
  
- 
- 
- 
- ###Answer
-
 
 ![histQQmatch](more/histQQmatch.png)
 

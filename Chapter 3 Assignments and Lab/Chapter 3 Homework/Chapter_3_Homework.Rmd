@@ -139,4 +139,142 @@ provided below.
 Yes. The grpahs show a unimodal distribution with the highest bar being in the middle of the graph.
 
 
+```{r}
+qqnorm(data)
+qqline(data)
+```
+
+##3.22 Defective rate. A machine that produces a special type of transistor (a component of
+##computers) has a 2% defective rate. The production is considered a random process where each
+##transistor is independent of the others.
+
+p=.02
+P(X=k) = (1-p)^(k-1)*p
+
+(a) What is the probability that the 10th transistor produced is the first with a defect?
+
+k=10
+1-p = .8
+k-1=10
+p=
+
+##Answer: 0.01667
+
+
+```{r}
+p <- .02
+k<- 10
+One_minus_p <- 1-p
+
+prob_tenth_transistor_defect <- (One_minus_p^(k-1))*p
+prob_tenth_transistor_defect
+```
+
+(b) What is the probability that the machine produces no defective transistors in a batch of 100?
+##Answer: 0.1326196
+
+```{r}
+prob_of_defect <- .02
+prob_of_no_defect <- 1-prob_of_defect
+n <-100
+
+prob_of_no_defect^n
+
+
+```
+(c) On average, how many transistors would you expect to be produced before the first with a
+defect? 
+##Answer: 50
+
+```{r}
+u<- 1/p
+u
+
+
+```
+What is the standard deviation?
+##Answer: 49.49747
+```{r}
+var <- (1-p) / (p^2)
+sd <- sqrt(var)
+sd
+
+```
+(d) Another machine that also produces transistors has a 5% defective rate where each transistor
+is produced independent of the others. On average how many transistors would you expect to
+be produced with this machine before the first with a defect? What is the standard deviation?
+##Answer: 20 transitors before a defect with 19.49 standard deviation.
+
+```{r}
+p2 <- .05
+u2 <- 1/p2
+u2
+
+var2 <- (1-p2) / (p2^2)
+sd2 <- sqrt(var2)
+sd2
+```
+Based on your answers to parts (c) and (d), how does increasing the probability of an event
+affect the mean and standard deviation of the wait time until success?
+##Answer:  Increasing the probability of an event lowers the mean and standard deviation of the wait until success. 
+
+###3.38 Male children. While it is often assumed that the probabilities of having a boy or a girl
+###are the same, the actual probability of having a boy is slightly higher at 0.51. Suppose a couple
+###plans to have 3 kids.
+
+(a) Use the binomial model to calculate the probability that two of them will be boys.
+##Answer: The probability that two of the babies will be boys is 0.382
+
+n = 3
+k = 2
+p = .51
+
+```{r}
+dbinom(2,size=3,prob = .51)
+```
+(b) Write out all possible orderings of 3 children, 2 of whom are boys. Use these scenarios to
+calculate the same probability from part (a) but using the addition rule for disjoint outcomes.
+Confirm that your answers from parts (a) and (b) match.
+##Answer: Matches the probability in part (a), 0.382
+
+P(g)XP(b)xP(b)
+P(b)xP(g)xP(g)
+P(b)xP(b)xP(g)
+
+
+
+```{r}
+prob_g <- .49
+prob_b <- .51
+
+(prob_g*prob_b*prob_b) + (prob_b*prob_g*prob_b) +(prob_b*prob_b*prob_g)
+
+```
+If we wanted to calculate the probability that a couple who plans to have 8 kids will have
+3 boys, briefly describe why the approach from part (b) would be more tedious than the
+approach from part (a).
+##Answer: It would be manually tedious to repeatedly write out the order of the probabilities.  The three boys could be at any three of the 8 outcomes.  Also, this would be prone to error.
+
+
+
+###3.42 Serving in volleyball. A not-so-skilled volleyball player has a 15% chance of making the
+###serve, which involves hitting the ball so it passes over the net on a trajectory such that it will land
+###in the opposing team’s court. Suppose that her serves are independent of each other.
+
+(a) What is the probability that on the 10th try she will make her 3rd successful serve?
+##Answer:First find the probability that she will make 2 successful serves in her first 9 tries. Then multiply the probability that she will have a successful try on her 10th. She has a 3.9% chance
+
+```{r}
+dbinom(2,size=9,prob = .15) * .15
+```
+(b) Suppose she has made two successful serves in nine attempts. What is the probability that
+her 10th serve will be successful?
+##Answer: Given independence of each try, she has a 15% percent chance on her 10th try.
+
+(c) Even though parts (a) and (b) discuss the same scenario, the probabilities you calculated
+should be different. Can you explain the reason for this discrepancy?
+##Answer: Each serve is independent of each other. In part (a) we did not know which two serves were successful.  In part (b), we were informed that two of the first serves were successful. 
+
+
+
 
