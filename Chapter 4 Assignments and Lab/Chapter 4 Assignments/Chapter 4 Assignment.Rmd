@@ -13,7 +13,57 @@ knitr::opts_chunk$set(echo = TRUE)
 ###and skeletal diameter measurements, as well as age, weight, height and gender, for 507 physically
 ###active individuals. The histogram below shows the sample distribution of heights in centimeters.
 
+####Answers:
+
 (a) The mean is 171.1, and the median is 170.3
+
 (b) The point estimate for the standard deviation is 9.4, and the IQR is 7.5
-(c) Is a person who is 1m 80cm (180 cm) tall considered unusually tall? And is a person who is
-1m 55cm (155cm) considered unusually short? Explain your reasoning.
+
+(c) Is a person who is 1m 80cm (180 cm) tall considered unusually tall? 
+
+No, the z-value of the observation at 180cm is approx. 1 standard deviation (0.95) above the mean and within the 95% confidence interval. 
+
+And is a person who is 1m 55cm (155cm) considered unusually short? Explain your reasoning.
+
+No, the z-value of the observation at 155cm is -1.71 standard deviations below the mean and within the 95% confidence interval. 
+
+
+```{r}
+#Observation of 180cm
+sample_mean <- 171.1
+observation <- 180
+stand_error <- 9.4 
+
+(observation - sample_mean)/ stand_error 
+
+```
+
+```{r}
+#Observation of 155cm
+sample_mean <- 171.1
+observation <- 155
+stand_error <- 9.4 
+
+(observation - sample_mean)/ stand_error 
+```
+
+(d) The researchers take another random sample of physically active individuals. Would you
+expect the mean and the standard deviation of this new sample to be the ones given above?
+Explain your reasoning.
+
+No. There are variations among different sample populations 
+
+
+(e) The sample means obtained are point estimates for the mean height of all active individuals,
+if the sample of individuals is equivalent to a simple random sample. What measure do we
+use to quantify the variability of such an estimate (Hint: recall that SD¯x = ! pn )? Compute
+this quantity using the data from the original sample under the condition that the data are a
+simple random sample.
+
+To compute the Standard Error, take the Standard Deviation divided by the square root of the sample size which is 0.42.
+
+
+```{r}
+stand_error / sqrt(507)
+```
+
