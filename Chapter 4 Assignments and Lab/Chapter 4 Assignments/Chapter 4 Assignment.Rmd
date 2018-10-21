@@ -74,6 +74,9 @@ spending for the six-day period after Thanksgiving, spanning the Black Friday we
 Monday, averaged $84.71. A 95% confidence interval based on this sample is ($80.31, $89.11).
 Determine whether the following statements are true or false, and explain your reasoning.
 
+####Answers:
+
+
 (a) We are 95% confident that the average spending of these 436 American adults is between
 $80.31 and $89.11.
 
@@ -118,6 +121,8 @@ as gifted children soon after they reached the age of four. The following histog
 of the ages (in months) at which these children first counted to 10 successfully. Also
 provided are some sample statistics.43
 
+####Answers:
+
 (a) Are conditions for inference satisfied?
 
 Yes. Sample was chosen randomly.  The sample is less than 10% of the population which means that it's indepdendent, and the sample size is greater than 30 which can be approximated to be normal given the Central Limit Theorem.
@@ -138,7 +143,7 @@ sample_std2 <- 4.31
 sample_size2 <- 36
 population_mean2 <- 32
 stand_error2 <- (sample_std2) /sqrt(sample_size2)
-
+stand_error2
 (sample_mean2 - population_mean2) / (sample_std2 / sqrt(sample_size2))
 
 
@@ -186,7 +191,7 @@ Yes. The sample mean is 32 months, and although it's at the border of the upper 
 along with variables on the children, the researchers also collected data on the mother's and father's
 IQ of the 36 randomly sampled gifted children. The histogram below shows the distribution of
 mother's IQ. Also provided are some sample statistics.
-
+####Answers:
 
 (a) Perform a hypothesis test to evaluate if these data provide convincing evidence that the average
 IQ of mothers of gifted children is di???erent than the average IQ for the population at large,
@@ -236,4 +241,68 @@ The 90% Confidence Interval for the sample population is 116.4125 to 119.9875.
 4.34 CLT. Define the term "sampling distribution" of the mean, and describe how the shape,
 center, and spread of the sampling distribution of the mean change as sample size increases.
 
+####Answers:
+
+The sampling distribution represents the distribution of the point estimates (sample means) based
+on samples of a fixed size from a certain population. According to the Central Limit Theorem, the shape of the sample distribution becomes normal when the size of the individual samples are 30 or more. As the sample sizes get larger the variations (standard deviations) get smaller, but the means stay the same.
+
+
+4.40 CFLBs. A manufacturer of compact fluorescent light bulbs advertises that the distribution
+of the lifespans of these light bulbs is nearly normal with a mean of 9,000 hours and a standard
+deviation of 1,000 hours.
+####Answers:
+
+(a) What is the probability that a randomly chosen light bulb lasts more than 10,500 hours?
+ANSWER: The z-score of a light bulb lasting 10,500 hours is 1.5 which translates into a probability of .9332 under the normal curve.  Thus, the probability of that bulb lasting more than 10,500 hours is 7%
+
+```{r}
+z_score <- (10500 - 9000) / 1000
+
+z_score
+
+probability = 1-0.9332
+
+probability
+```
+
+
+(b) Describe the distribution of the mean lifespan of 15 light bulbs.
+
+ANSWER: Since the population is normally distributed, the distribution of the mean lifespan of the 15 light bulbs is also normally distributed. 
+
+(c) What is the probability that the mean lifespan of 15 randomly chosen light bulbs is more than
+10,500 hours?
+
+ANSWER: The z-score of 15 light bulbs lasting 10,500 hours is 5.81 which translates into a probability of 1 under the normal curve.  Thus, the probability of 15 bulbs lasting more than 10,500 hours is 0%
+
+```{r}
+sample_size4 = 15
+sample_mean4 = 10500
+population_mean4 = 9000
+population_sd = 1000
+
+
+Z_score2 <- (sample_mean4-population_mean4) /  (1000 / sqrt(15))
+Z_score2
+
+
+
+```
+
+
+(d) Sketch the two distributions (population and sampling) on the same scale.
+
+(e) Could you estimate the probabilities from parts (a) and (c) if the lifespans of light bulbs had
+a skewed distribution?
+
+ANSWER: No, the estimates above are based on a the population and the samples being normally distributed under the Central Limit Theorem.
+
+
+4.48 Same observation, different sample size. Suppose you conduct a hypothesis test based
+on a sample where the sample size is n = 50, and arrive at a p-value of 0.08. You then refer back
+to your notes and discover that you made a careless mistake, the sample size should have been
+n = 500. Will your p-value increase, decrease, or stay the same? Explain.
+
+####Answers:
+When the sample size increases, the variability decreases. The absolute value of the Z score would also increase since the variability is lower. As the Z value increases, the p value decreases. 
 

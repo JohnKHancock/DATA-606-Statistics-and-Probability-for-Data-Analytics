@@ -37,14 +37,27 @@ variable `Gr.Liv.Area`.
 ```{r sample, eval=TRUE}
 population <- ames$Gr.Liv.Area
 samp <- sample(population, 60)
+
+hist(samp)
+
 ```
 
 1.  Describe the distribution of your sample. What would you say is the 
 "typical" size within your sample? Also state precisely what you interpreted 
 "typical" to mean.
 
+###ANSWER
+
+The distribution of the sample is unimodal, with a slight right skew.  However, you could reasonably state that it's normally distributed. The typical size is between 1000 and 1500 square feet or 1250 square feet. I interpreted that way since the range of 1000 to 1500 has the higest number of observations.
+
+
 2.  Would you expect another student's distribution to be identical to yours? 
 Would you expect it to be similar? Why or why not?
+
+###ANSWER
+
+No.  Selection of each sample is random. Any other sample selected would have different observations in it. 
+
 
 ## Confidence intervals
 
@@ -84,9 +97,18 @@ There are a few conditions that must be met for this interval to be valid.
 distributed and have standard error $s / \sqrt{n}$. What conditions must be 
 met for this to be true?
 
+###ANSWER
+
+1. The sample observations are independent.
+2. The sample size is larger than 30.
+3. The population distribution is not strongly skewed.
+
 ## Confidence levels
 
 4.  What does "95% confidence" mean? If you're not sure, see Section 4.2.2.
+
+###ANSWER
+The 95% confidence interval provides a plausible range of values for estimating the true population mean based on the sample mean plus/minus 1.96 times the standard error. 
 
 In this case we have the luxury of knowing the true population mean since we 
 have data on the entire population. This value can be calculated using the 
@@ -100,12 +122,20 @@ mean(population)
 Ames? If you are working on this lab in a classroom, does your neighbor's 
 interval capture this value? 
 
+###ANSWER
+Yes.  The confidence interval was 1297.525, 1528.109, and the true average is within in this interval. 
+
+
 6.  Each student in your class should have gotten a slightly different 
 confidence interval. What proportion of those intervals would you expect to 
 capture the true population mean? Why? If you are working in this lab in a 
 classroom, collect data on the intervals created by other students in the 
 class and calculate the proportion of intervals that capture the true 
 population mean.
+
+####ANSWER
+
+Cannot answer since this is an online course, and there are no neighbors.
 
 Using R, we're going to recreate many samples to learn more about how sample 
 means and confidence intervals vary from one sample to another. *Loops* come 
@@ -161,13 +191,27 @@ c(lower_vector[1], upper_vector[1])
     plot all intervals. What proportion of your confidence intervals include 
     the true population mean? Is this proportion exactly equal to the 
     confidence level? If not, explain why.
+    
+###ANSWER
+
+48 out of the 50 Confidence Intervals (96%) contained the true population mean.  Although not exactly, at 96% this equals the 95% confidence interval. 
 
     ```{r plot-ci, eval=TRUE}
     plot_ci(lower_vector, upper_vector, mean(population))
     ```
 
+
+```{r}
+48/50
+```
+
 -   Pick a confidence level of your choosing, provided it is not 95%. What is 
     the appropriate critical value?
+    
+###ANSWER
+At a 90% confidence interval, the critical value is +/- 1.64. 
+    
+    
 
 -   Calculate 50 confidence intervals at the confidence level you chose in the 
     previous question. You do not need to obtain new samples, simply calculate 
@@ -176,6 +220,27 @@ c(lower_vector[1], upper_vector[1])
     calculate the proportion of intervals that include the true population 
     mean. How does this percentage compare to the confidence level selected for
     the intervals?
+    
+At 90% confidence intervals, I found 5 intervals out of the 50 that did not contain the true population mean. 45/50 equates to 90% which is exactly like the confidence interval.    
+    
+    
+```{r}
+lower_vector <- samp_mean - 1.64 * samp_sd / sqrt(n) 
+upper_vector <- samp_mean + 1.64 * samp_sd / sqrt(n)
+c(lower_vector[1], upper_vector[1])
+plot_ci(lower_vector, upper_vector, mean(population))
+
+```
+   
+```{r}
+45/50
+```
+    
+    
+    
+    
+    
+    
 
 <div id="license">
 This is a product of OpenIntro that is released under a [Creative Commons 

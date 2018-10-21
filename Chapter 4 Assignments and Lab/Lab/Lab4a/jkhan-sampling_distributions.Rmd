@@ -48,6 +48,10 @@ hist(area)
 
 1.  Describe this population distribution.
 
+###ANSWER: 
+The distribution of the diagram is unimodal with a right skew. 
+
+
 ## The unknown sampling distribution
 
 In this lab we have access to the entire population, but this is rarely the 
@@ -70,6 +74,13 @@ home sales.
 
 2.  Describe the distribution of this sample. How does it compare to the 
     distribution of the population?
+    
+    The distribution is unimodal with the highest frequency is in the middle.  It's normally distributed. 
+    
+```{r}
+hist(samp1)
+```
+
 
 If we're interested in estimating the average living area in homes in Ames 
 using the sample, our best single guess is the sample mean.
@@ -88,6 +99,19 @@ population.
     mean of `samp2` compare with the mean of `samp1`?  Suppose we took two 
     more samples, one of size 100 and one of size 1000. Which would you think 
     would provide a more accurate estimate of the population mean?
+    
+```{r}
+samp2 <- sample(area, 50)
+```
+
+    
+```{r}
+
+mean(samp2)
+```
+###ANSWER: 
+
+The mean of samp2 is close to samp1 but they're not exactly the same. If we took more samples of larger sizes, we would get near the population sample but probably not the population mean. 
 
 Not surprisingly, every time we take another random sample, we get a different 
 sample mean.  It's useful to get a sense of just how much variability we 
@@ -113,7 +137,7 @@ If you would like to adjust the bin width of your histogram to show a little
 more detail, you can do so by changing the `breaks` argument.
 
 ```{r hist-breaks, eval=TRUE}
-hist(sample_means50, breaks = 25)
+hist(sample_means50, breaks = 30)
 ```
 
 Here we use R to take 5000 samples of size 50 from the population, calculate 
@@ -124,6 +148,13 @@ the mean of each sample, and store each result in a vector called
     distribution, and be sure to specifically note its center.  Would you 
     expect the distribution to change if we instead collected 50,000 sample 
     means?
+    
+```{r}
+length(sample_means50)
+```
+###ANSWER: 
+There are 5000 elements in sample_means50. The sampling distribution is unimodal with the highest peak at the center. I do not expect the distribution to change with 50,000 sample means given the Central Limit Theory which states that samples, given indepence of the observations and size of each sample being larger than 30 follows a normal distribution.     
+
 
 ## Interlude: The `for` loop
 
@@ -200,6 +231,20 @@ initialized at the outset.
     `sample_means_small` into the console and press enter).  How many elements 
     are there in this object called `sample_means_small`? What does each 
     element represent?
+    
+ANSWER: There are 100 elements in sample_means_small. Each element represents the sample mean for each sample size of 50 taken from the variable area. 
+    
+```{r}
+sample_means_small <- rep(NA, 100)
+
+for(i in 1:100){
+   samp5 <- sample(area, 50)
+   sample_means_small[i] <- mean(samp5)
+   print(i)
+}
+sample_means_small
+```
+  
 
 ## Sample size and the sampling distribution
 
@@ -264,6 +309,8 @@ plotted with the same limits on the x-axis.
 
 6.  When the sample size is larger, what happens to the center?  What about the spread?
 
+ANSWER: When the sample sizea get larger, the center stays nearly the same and the spread around it gets smaller. 
+
 * * *
 ## On your own
 
@@ -271,8 +318,17 @@ So far, we have only focused on estimating the mean living area in homes in
 Ames.  Now you'll try to estimate the mean home price.
 
 -   Take a random sample of size 50 from `price`. Using this sample, what is 
-    your best point estimate of the population mean?
+    your best point estimate of the population mean? 
 
+ANSWER: The point estimate for the population mean for price is 174932.3
+
+```{r}
+samp11 <- sample(price, 50)
+```
+
+```{r}
+mean(samp11)
+```
 -   Since you have access to the population, simulate the sampling 
     distribution for $\bar{x}_{price}$ by taking 5000 samples from the 
     population of size 50 and computing 5000 sample means.  Store these means 
@@ -280,17 +336,54 @@ Ames.  Now you'll try to estimate the mean home price.
     shape of this sampling distribution. Based on this sampling distribution, 
     what would you guess the mean home price of the population to be? Finally, 
     calculate and report the population mean.
+    
+    
+###Answer
+The shape of the sampling distribution is unimodal and symmetrical with highest mean sample price in the middle. Based on the sampling distribution, I estimate that the mean house price is somewhere near 180,000. The actual mean price is 180796.1
+    
+```{r}
+sample_means50 <- rep(NA, 5000)
 
+for(i in 1:5000){
+   samp <- sample(price, 50)
+   sample_means50[i] <- mean(samp)
+   }
+
+hist(sample_means50)
+```
+    
+```{r}
+mean(price)
+```
+  
 -   Change your sample size from 50 to 150, then compute the sampling 
     distribution using the same method as above, and store these means in a 
     new vector called `sample_means150`. Describe the shape of this sampling 
     distribution, and compare it to the sampling distribution for a sample 
     size of 50.  Based on this sampling distribution, what would you guess to 
     be the mean sale price of homes in Ames?
+    
+```{r}
+sample_means150 <- rep(NA, 5000)
+
+for(i in 1:5000){
+   samp <- sample(price, 150)
+   sample_means150[i] <- mean(samp)
+   }
+
+hist(sample_means150)
+```
+###Answer
+The shape of the sampling distribution is unimodal and symmetrical with highest mean sample price shaded to the right of 180000. There's less variability in the distribution when compared to sample sizes of 50. Based on the sampling distribution, I estimate that the mean house price is slightly above 180,000. 
 
 -   Of the sampling distributions from 2 and 3, which has a smaller spread?  If
     we're concerned with making estimates that are more often close to the 
     true value, would we prefer a distribution with a large or small spread?
+    
+###Answer
+Sampling distribution in 3 has a smaller spread than the Sampling distribution in 2. We can conclude that we would prefer a distribution with a smaller spread (larger sample size) in order to estimate the true value.
+    
+
 
 <div id="license">
 This is a product of OpenIntro that is released under a [Creative Commons 
