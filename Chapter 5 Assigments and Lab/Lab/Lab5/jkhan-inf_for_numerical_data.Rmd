@@ -44,6 +44,12 @@ variable         | description
 `whitemom`       | whether mom is `white` or `not white`.
 
 1.  What are the cases in this data set? How many cases are there in our sample?
+#####Answer:
+The cases in this data set represent information on births specifically across 13 variables. There are 1000 observations in this data set.
+```{r}
+dim(nc)
+```
+
 
 As a first step in the analysis, we should consider summaries of the data. This
 can be done using the `summary` command:
@@ -63,6 +69,18 @@ questions.
 
 2.  Make a side-by-side boxplot of `habit` and `weight`. What does the plot 
 highlight about the relationship between these two variables?
+
+#####Answer:
+The boxplots show that the median weight babies of nonsmoking moms is slightly higher than that of moms who smoke. Additionally, there's more variability with the non-smoker moms. 
+
+```{r}
+boxplot(weight~habit , data = nc, xlab = "Habits",
+   ylab = "Weight")
+```
+
+
+
+
 
 The box plots show how the medians of the two distributions compare, but we can
 also compare the means of the distributions using the following function to 
@@ -84,8 +102,24 @@ you will need to obtain sample sizes to check the conditions. You can compute
 the group size using the same `by` command above but replacing `mean` with 
 `length`.
 
+```{r by-length, eval=TRUE}
+by(nc$weight, nc$habit, length)
+```
+####Answers
+A. Independence. The data is simple random sample from less than 10% of the population,
+this condition is satisfied.
+
+B. Data is approx. normal
+
+c. Sample size is greater than 30
+
+
 4.  Write the hypotheses for testing if the average weights of babies born to 
 smoking and non-smoking mothers are different.
+
+Null Hypothesis: Average weight of babies is the same for mothers who smoke or don't smoke. u=u
+
+Alt Hypothesis: Average weight of babies is not the same for mothers who smoke or don't smoke. u!= U
 
 Next, we introduce a new function, `inference`, that we will use for conducting
 hypothesis tests and constructing confidence intervals. 
@@ -130,15 +164,50 @@ inference(y = nc$weight, x = nc$habit, est = "mean", type = "ci", null = 0,
 on a single population parameter, there is no explanatory variable, so you can 
 omit the `x` variable from the function.
 
+```{r}
+inference(y = nc$weeks, est = "mean", type = "ci", null = 0, 
+          alternative = "twosided", method = "theoretical")
+```
+
+
+
 -   Calculate a new confidence interval for the same parameter at the 90% 
 confidence level. You can change the confidence level by adding a new argument 
 to the function: `conflevel = 0.90`.
 
+```{r}
+inference(y = nc$weeks, est = "mean", type = "ci", conflevel = 0.90, null = 0, 
+          alternative = "twosided", method = "theoretical")
+
+```
+
+
+
+
+
+
 -   Conduct a hypothesis test evaluating whether the average weight gained by 
 younger mothers is different than the average weight gained by mature mothers.
 
+```{r}
+inference(y = nc$gained, x = nc$mature, est = "mean", type = "ht", null = 0, 
+          alternative = "twosided", method = "theoretical")
+```
+
+
+
+
+
 -   Now, a non-inference task: Determine the age cutoff for younger and mature 
 mothers. Use a method of your choice, and explain how your method works.
+
+
+```{r}
+plot(mage~mature, data=nc)
+```
+
+
+
 
 -   Pick a pair of numerical and categorical variables and come up with a 
 research question evaluating the relationship between these variables. 
@@ -146,6 +215,16 @@ Formulate the question in a way that it can be answered using a hypothesis test
 and/or a confidence interval. Answer your question using the `inference` 
 function, report the statistical results, and also provide an explanation in 
 plain language.
+
+
+```{r}
+inference(y = nc$visits, x = nc$premie, est = "mean", type = "ht", null = 0, 
+          alternative = "twosided", method = "theoretical")
+```
+
+
+
+
 
 <div id="license">
 This is a product of OpenIntro that is released under a [Creative Commons 

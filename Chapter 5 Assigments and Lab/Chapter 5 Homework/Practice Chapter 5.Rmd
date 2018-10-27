@@ -1,0 +1,49 @@
+---
+title: "Video Lectures"
+author: "John K. Hancock"
+date: "October 25, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+```{r}
+pnorm(2, lower.tail = FALSE)*2
+```
+
+```{r}
+pt(2, df = 10, lower.tail = FALSE)*2 
+```
+
+```{r}
+-qt(0.025, df =21)
+```
+
+```{r}
+x= 52.1
+s = 45.1
+n = 22
+t = qt(.975, df=21)
+
+lower = x-(t*(s/sqrt(n)))
+upper = x+(t*(s/sqrt(n)))
+
+t
+lower
+upper
+```
+
+```{r}
+T_stat = (x-30) / (s/sqrt(n))
+2*pt(T_stat, df=21, lower.tail = FALSE)
+```
+
+```{r}
+#normalPlot(mean = 0, sd = 1, bounds = c(-1.13, 5), tails = FALSE)
+?normalPlot
+```
+
