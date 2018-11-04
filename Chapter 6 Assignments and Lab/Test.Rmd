@@ -1,0 +1,17 @@
+---
+title: "test"
+output:
+  html_document:
+    css: Lab6/lab.css
+    highlight: pygments
+    theme: cerulean
+author: "John K. Hancock"
+date: "November 3, 2018"
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Test Heading

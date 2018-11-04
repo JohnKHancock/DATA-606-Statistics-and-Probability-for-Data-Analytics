@@ -2,29 +2,291 @@
 title: "Chapter Six Assignment"
 author: "John K. Hancock"
 date: "October 30, 2018"
-output: html_document
+output:
+  html_document:
+    css: lab.css
+    highlight: pygments
+    theme: cerulean
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-###Chapter Six Homework Assigments
+## Chapter Six Homework Assigments
 
 
-6.6 2010 Healthcare Law. On June 28, 2012 the U.S. Supreme Court upheld the much debated
+### 6.6
+2010 Healthcare Law. On June 28, 2012 the U.S. Supreme Court upheld the much debated
 2010 healthcare law, declaring it constitutional. A Gallup poll released the day after this decision
 indicates that 46% of 1,012 Americans agree with this decision. At a 95% confidence level, this
 sample has a 3% margin of error. Based on this information, determine if the following statements
-are true or false, and explain your reasoning.39
-
-
+are true or false, and explain your reasoning.
 
 (a) We are 95% confident that between 43% and 49% of Americans in this sample support the
 decision of the U.S. Supreme Court on the 2010 healthcare law.
+
+#### Answer:
+False.  The 95% confidence interval is an inferential statistic about the population not the sample. 
+
 (b) We are 95% confident that between 43% and 49% of Americans support the decision of the
 U.S. Supreme Court on the 2010 healthcare law.
+
+### Answer:
+True. The 95% confidence interval is a population parameter which provides a range of support, 43% to 49%.
+
 (c) If we considered many random samples of 1,012 Americans, and we calculated the sample
 proportions of those who support the decision of the U.S. Supreme Court, 95% of those sample
 proportions will be between 43% and 49%.
+
+### Answer:
+False.  The 95% confidence interval estimates population parameter.  It does not say anything about 
+
+
 (d) The margin of error at a 90% confidence level would be higher than 3%.
+### Answer:
+False. The MOE is calculated by multiplying the Z-score by the SE.  The Z-score for a 90% Confidence interval is lower than it is for a 95% confidence interval. 
+
+
+### 6.12 
+Legalization of marijuana, Part I. The 2010 General Social Survey asked 1,259 US residents:
+"Do you think the use of marijuana should be made legal, or not?" 48% of the respondents
+said it should be made legal.
+
+
+(a) Is 48% a sample statistic or a population parameter? Explain.
+
+### Answer:
+It's a sample statistic, a point estimate for the population. The 48% is the percentage of the 1,259 people in the sample. 
+
+(b) Construct a 95% confidence interval for the proportion of US residents who think marijuana
+should be made legal, and interpret it in the context of the data.
+
+### Answer:
+The 95% confidence interval is (45.24%, 51%), and the MOE is 2.76%
+```{r}
+n <- 1259
+p <- .48
+z <- 1.96
+SE <- ((sqrt((p*(1-p))/n)))
+MOE <- z*SE
+
+lower_tail <- p - MOE
+upper_tail <- p + MOE
+lower_tail
+upper_tail
+MOE
+```
+
+(c) A critic points out that this 95% confidence interval is only accurate if the statistic follows a
+normal distribution, or if the normal model is a good approximation. Is this true for these
+data? Explain.
+
+### Answer:
+The conditions for this sampling being nearly normal has been met in this study because:
+1. Since the number of observations are greater than 30, we can assume normality.
+2. The success-failure condition needs at least 10 successes and 10 failures. In this study, we see 604 successes and 654 failures.
+
+```{r}
+successes <- p*n
+failures <- (1-p)*n
+successes
+failures
+```
+(d) A news piece on this survey's findings states, "Majority of Americans think marijuana should
+be legalized." Based on your confidence interval, is this news piece's statement justified?
+
+### Answer:
+This news statement is inaccurate. The confidence interval provides a range of possible population parameters from 45% to 50%. A clear majority of Americans is not in this interval.
+
+
+### 6.20
+Legalize Marijuana, Part II. As discussed in Exercise 6.12, the 2010 General Social
+Survey reported a sample where about 48% of US residents thought marijuana should be made
+legal. If we wanted to limit the margin of error of a 95% confidence interval to 2%, about how
+many Americans would we need to survey ?
+
+### Answer:
+Approximately 2,397 Americans would need to be surveyed to limit a MOE of a 95% CI to 2%
+```{r}
+numerator = .48*.52
+denominator = (.02/1.96)
+ans<- numerator/(denominator)^2
+ans
+```
+
+### 6.28
+Sleep deprivation, CA vs. OR, Part I. According to a report on sleep deprivation by the
+Centers for Disease Control and Prevention, the proportion of California residents who reported
+insufficient rest or sleep during each of the preceding 30 days is 8.0%, while this proportion is
+8.8% for Oregon residents. These data are based on simple random samples of 11,545 California
+and 4,691 Oregon residents. Calculate a 95% confidence interval for the difference between the
+proportions of Californians and Oregonians who are sleep deprived and interpret it in context of
+the data.
+
+### Answer:
+First, we have to check two conditions.  The first condition is that each sample follows a normal distribution. Each sample is less than 10% of the population and is over 30 respondents, so we can assume normality. The second condition is that the samples are independent of each other.  Since the samples were taken in two different cities, we can assume that they are independent. 
+
+The number of Californians who are more sleep deprived than Oregonians is between 1.75% and .15% higer at a 95% COnfidence leve.
+
+```{r}
+sample_means_diff =  .08 - .088
+ORE_p = .088
+ORE_n = 4691
+ORE_pp = ORE_p*(1-ORE_p)
+
+
+CAL_p = .08
+CAL_n = 11545
+CAL_pp = CAL_p*(1-CAL_p)
+
+
+SE = sqrt(((ORE_pp/ORE_n)+(CAL_pp/CAL_n)))
+z = 1.96
+MOE = z*SE
+
+lower_bound = sample_means_diff - MOE
+upper_bound = sample_means_diff + MOE
+
+lower_bound
+upper_bound
+MOE
+SE
+```
+
+
+
+### 6.44 
+Barking deer. Microhabitat factors associated with forage and bed sites of barking deer
+in Hainan Island, China were examined from 2001 to 2002. In this region woods make up 4.8%
+of the land, cultivated grass plot makes up 14.7%, and deciduous forests makes up 39.6%. Of the
+426 sites where the deer forage, 4 were categorized as woods, 16 as cultivated grassplot, and 61 as
+deciduous forests. The table below summarizes these data.
+
+Woods  Cultivated_grassplot  Deciduous_forests   Other Total
+4        16                    61                 345    426
+
+(a) Write the hypotheses for testing if barking deer prefer to forage
+in certain habitats over others.
+### Answer
+Null Hypothesis: Barking deer prefer to forage all habitats equally.
+Alt Hypothesis: Barking deer prefer to forage in certain habitats.
+
+(b) What type of test can we use to answer this research question?
+### Answer
+In this problem, we are given a sample that can be classified into different groups, and to determine if these groups are representative of the population, we use a chi-square, goodness of fit test.
+
+(c) Check if the assumptions and conditions required for this test
+are satisfied.
+### Answer
+1. Condition one: Independence. Each case that contributes a count to the table must be independent
+of all the other cases in the table. This condition is satisfied because each parcel of land is independent of each other.
+
+2. Condition two: Sample size / distribution. Each particular scenario (i.e. cell count) must have
+at least 5 expected cases. This condition is satisfied because there are more than 5 observations in the expected count.
+
+(d) Do these data provide convincing evidence that barking deer prefer
+to forage in certain habitats over others? Conduct an appropriate
+hypothesis test to answer this research question.
+### Answer
+The chi square value is 284.0609, and the p value, at 3 degrees of freedom, is < 0.001.  With a p-value < .05, we reject the null hypothesis that Barking deer prefer to forage all habitats equally.  
+
+```{r}
+#Expected values
+E1 = .048*426
+E2 = .147*426
+E3 = .396*426
+E4 = .409*426
+
+#Observed values minus expected values divided by null counts
+Z1 = (4-E1)^2 / E1
+Z2 = (16-E2)^2 / E2
+Z3 = (61-E3)^2 / E3
+Z4 = (345-E4)^2 /E4
+
+chiSquare = Z1 +Z2 +Z3+Z4
+chiSquare 
+
+
+
+```
+
+### 6.48 
+
+Coffee and Depression. Researchers conducted a study investigating the relationship
+between caffeinated coffee consumption and risk of depression in women. They collected data
+on 50,739 women free of depression symptoms at the start of the study in the year 1996, and
+these women were followed through 2006. The researchers used questionnaires to collect data on
+caffeinated coffee consumption, asked each individual about physician-diagnosed depression, and
+also asked about the use of antidepressants. The table below shows the distribution of incidences
+of depression by amount of ca???einated co???ee consumption.63
+
+
+(a) What type of test is appropriate for evaluating if there is an association between coffee intake
+and depression?
+
+### Answer
+This is a chi square test of for independence of two variables caffeine consumption an depression.  
+
+(b) Write the hypotheses for the test you identified in part (a).
+
+### Answer
+
+Null Hypothesis: Depression and caffeine consumption are independent
+Alt Hypothesis ; Depression and caffeine consumption are dependendent
+
+(c) Calculate the overall proportion of women who do and do not su???er from depression.
+
+### Answer
+5.14% of the women suffer from depression
+94.86% of the women do not suffer from depression
+
+```{r}
+suffer_depress <- 2607/50739
+not_suffer_depress <- 48132/50739
+
+suffer_depress
+not_suffer_depress
+```
+
+(d) Identify the expected count for the highlighted cell, and calculate the contribution of this cell
+to the test statistic, i.e. (Observed ??? Expected)2/Expected.
+
+### Answer
+The expected count is 339.98 and the contribution of the cell is 3.206
+
+```{r}
+Expected = suffer_depress*6617
+Observed = 373
+
+cell = ((Observed-Expected)^2 )/ Expected
+cell
+
+```
+
+
+(e) The test statistic is #2 = 20.93. What is the p-value?
+
+### Answer
+P-value < 0.001.  More precisely, it's 0.0003269507. 
+
+```{r}
+df = (5-1)*(2-1)
+df
+pchisq(20.93,df,lower.tail = FALSE)
+```
+
+(f) What is the conclusion of the hypothesis test?
+
+### Answer
+Given that the P-value is < 0.05, we reject the null hypothesis. The two variables are dependent. 
+
+(g) One of the authors of this study was quoted on the NYTimes as saying it was "too early to
+recommend that women load up on extra coffee based on just this study. Do you agree with
+this statement? Explain your reasoning.
+
+### Answer
+Yes. I agree with the author.  The hypothesis test rejected the hypothesis that there is no independence between the two variables, but that does not imply causation.  There may be other lurking variables as well. 
+
+
+
