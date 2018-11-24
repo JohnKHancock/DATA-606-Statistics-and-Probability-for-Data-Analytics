@@ -1,0 +1,228 @@
+---
+title: "DATA606 Chapter 8 Exercises"
+author: "John K. Hancock"
+date: "November 23, 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##DATA606 Chapter 8 Exercises
+
+
+####8.2 
+Baby weights, Part II. Exercise 8.1 introduces a data set on birth weight of babies.
+Another variable we consider is parity, which is 0 if the child is the first born, and 1 otherwise.
+The summary table below shows the results of a linear regression model for predicting the average
+birth weight of babies, measured in ounces, from parity.
+
+(a) Write the equation of the regression line.
+
+####Answer
+y = 120.07 + -1.93x
+
+(b) Interpret the slope in this context, and calculate the predicted birth weight of first borns and
+others.
+
+####Answer
+
+The slope in this context means that the baby's weight will be 120.07 if it's the first born, and the weight will decrease by 1.93 ounces if it is not the first born. As stated previously, the model predicts that the weight of the first born will be 120.07.  If not first born, the model predicts that the birth weight will be 118.14.
+
+
+(c) Is there a statistically significant relationship between the average birth weight and parity?
+####Answer
+No, the p-value is greater than .05.  Thus, we cannot reject the null hypotheses that birth order does not influence birth weight.
+
+
+####8.4
+
+Absenteeism, Part I. Researchers interested in the relationship between absenteeism from
+school and certain demographic characteristics of children collected data from 146 randomly sampled
+students in rural New South Wales, Australia, in a particular school year. Below are three
+observations from this data set.The summary table below shows the results of a linear regression model for predicting the average
+number of days absent based on ethnic background
+
+
+(a) Write the equation of the regression line.
+
+####Answer
+
+absenteeism = 18.93 + -9.11*eth + 3.10*sex + lrn*2.15
+
+(b) Interpret each one of the slopes in this context.
+
+####Answer
+
+For ethnicity, absenteeism descreases if the student is not aboriginal, but increases if the student is aboriginal.
+For sex, absenteeism increases if the student is male and decreases if it's female student.
+For learner, absenteeism increases if the student is a slow learner, and decreases if otherwise.
+
+
+(c) Calculate the residual for the first observation in the data set: a student who is aboriginal,
+male, a slow learner, and missed 2 days of school.
+
+####Answer
+The residual for the first observation is -22.18. 
+
+```{r}
+eth = 0
+sex= 1
+lrn = 1
+
+absenteeism = 18.93 + (-9.11*eth) + (3.10*sex) + (lrn*2.15)
+actual_absence = 2
+residual_absence = actual_absence - absenteeism
+residual_absence
+```
+
+(d) The variance of the residuals is 240.57, and the variance of the number of absent days for all
+students in the data set is 264.17. Calculate the R2 and the adjusted R2. Note that there are
+146 observations in the data set.
+
+####Answer
+
+The R2 score is 0.08933641
+The Adjusted R2 score is 0.07009704
+
+
+```{r}
+var_residual  = 240.57
+var_birth_Weights = 264.17
+n = 146
+k = 3
+R2 = 1 - (var_residual/var_birth_Weights)
+Adi_R2 = 1 - ((var_residual * (n-1)) / (var_birth_Weights * (n-k-1)))
+              
+R2   
+Adi_R2 
+```
+
+####8.8 
+
+Absenteeism, Part II. Exercise 8.4 considers a model that predicts the number of days
+absent using three predictors: ethnic background (eth), gender (sex), and learner status (lrn).
+The table below shows the adjusted R-squared for the model as well as adjusted R-squared values
+for all models we evaluate in the first step of the backwards elimination process.
+Model Adjusted R2
+1 Fullmodel 0.0701
+2 No ethnicity -0.0033
+3 No sex 0.0676
+4 No learner status 0.0723
+Which, if any, variable should be removed from the model first?
+
+####Answer
+
+Backward elimination begins with the largest model and eliminates variables one by-
+one until we are satisfied that all remaining variables are important to the
+model. In this context, it would be leaner status that would be removed.  This is the variable that contributes the least to the model.
+
+#### 8.16 
+Challenger disaster, Part I. On January 28, 1986, a routine launch was anticipated for
+the Challenger space shuttle. Seventy-three seconds into the flight, disaster happened: the shuttle
+broke apart, killing all seven crew members on board. An investigation into the cause of the
+disaster focused on a critical seal called an O-ring, and it is believed that damage to these O-rings
+during a shuttle launch may be related to the ambient temperature during the launch. The table
+below summarizes observational data on O-rings for 23 shuttle missions, where the mission order
+is based on the temperature at the time of the launch. Temp gives the temperature in Fahrenheit,
+Damaged represents the number of damaged O-rings, and Undamaged represents the number of
+O-rings that were not damaged.
+
+(a) Each column of the table above represents a different shuttle mission. Examine these data
+and describe what you observe with respect to the relationship between temperatures and
+damaged O-rings.
+
+####Answer
+
+Looking at the observations, O-rings are more damaged during lower temperatures than at high temperatures. 
+
+(b) Failures have been coded as 1 for a damaged O-ring and 0 for an undamaged O-ring, and
+a logistic regression model was fit to these data. A summary of this model is given below.
+Describe the key components of this summary table in words.
+
+####Answer
+
+The model consist of one predictor, Temperature with an intercept of 11.6630.  The p-value of the model is < 0.05 which means that it is statistically significant to reject the Null Hypothesis that temperature has no affect on O-ring damage. 
+
+
+(c) Write out the logistic model using the point estimates of the model parameters.
+
+####Answer
+
+Loge(p1/1-p1)  = 11.6630 + -0.2162*Temperature
+
+(d) Based on the model, do you think concerns regarding O-rings are justified? Explain.
+
+####Answer
+
+Yes concerns regarding O-rins are justified. The model does explain that Temperature has an affect on damaged O-rings.  Damaged O-rings was seen to be the cause of the disaster.
+
+
+#### 8.18 
+
+Challenger disaster, Part II. Exercise 8.16 introduced us to O-rings that were identified
+as a plausible explanation for the breakup of the Challenger space shuttle 73 seconds into takeo???
+in 1986. The investigation found that the ambient temperature at the time of the shuttle launch
+was closely related to the damage of O-rings, which are a critical component of the shuttle. See
+this earlier exercise if you would like to browse the original data.
+
+(a) Use the model to calculate the probability that an O-ring will become damaged at each of the following
+ambient temperatures: 51, 53, and 55 degrees Fahrenheit.
+
+####Answer
+
+The probabilities of O-ring damage at 51, 53, and 55 degrees Fahrenheit is 0.65, 0.55, and 0.44 respectively,
+
+```{r}
+temperatures = c(51,53,55)
+probabilities = exp(11.6630-0.2162*temperatures)/(1+exp(11.6630-0.2162*temperatures))
+probabilities
+#checking the results
+
+round(log((probabilities) / (1-probabilities)),2) == round((11.6630 - (0.2162*temperatures)),2)
+```
+
+(b) Add the model-estimated probabilities from part (a) on the plot, then connect these dots using
+a smooth curve to represent the model-estimated probabilities.
+
+####Answer
+
+```{r}
+library(ggplot2)
+
+temperatures2 <- c(temperatures, 57,59,61,63,65,67,69,71)
+probabilities2 <- c(probabilities, 0.341,0.251,0.179, 0.124,0.084,0.056,0.037,0.024)
+
+Shuttle_Data <-as.data.frame(cbind(temperatures2, probabilities2))
+Shuttle_Data 
+
+
+
+
+
+```
+
+```{r}
+library(ggplot2)
+ggplot(Shuttle_Data, aes(x=temperatures2,y=probabilities2)) + geom_point()  +
+    stat_smooth(method = 'glm')
+```
+
+
+(c) Describe any concerns you may have regarding applying logistic regression in this application,
+and note any assumptions that are required to accept the model's validity.
+
+####Answer
+
+Logistic regression conditions
+There are two key conditions for fitting a logistic regression model:
+
+1. Each predictor xi is linearly related to logit(pi) if all other predictors are
+held constant.
+
+2. Each outcome Yi is independent of the other outcomes.
+
+For this model,  we don't have enough data to satisfy the first condition.  We only have 11 observations which is not enough to apply this model on other data. 
+
+We can assume independence of the observations so the second condition has been met. 
