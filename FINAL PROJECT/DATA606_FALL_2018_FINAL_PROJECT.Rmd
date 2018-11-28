@@ -112,7 +112,7 @@ For this project, I re-scaled the data by applying the
 #head(mlb_df,10)
 ```
 
-##IV. Creating Categorical Varibles
+### Creating Categorical Varibles
 
 ### Record Category
 
@@ -177,7 +177,7 @@ mlb_df$League <- case_when(mlb_df$Team == 'Braves'~'National League',
  TRUE ~ as.character('American League'))
 ```
 
-During the past 20 years, one team, the Milwaukee Brewers changed leagues from the NL to the AL, so I have to account for this switch.
+During the past 20 years, one team, the Houston Astros changed leagues from the NL to the AL, so I have to account for this switch.
 
 
 ```{r}
@@ -188,56 +188,38 @@ mlb_df$League[ rows] <- "National League"
 
 
 ```{r}
-mlb_df[mlb_df$Team == 'Astros', ]
-```
-
-```{r}
 mlb_df$League <- as.factor(mlb_df$League)
+head(mlb_df[mlb_df$Team == 'Astros', ],5)
+tail(mlb_df[mlb_df$Team == 'Astros', ],5)
 ```
 
+### Predictor Variables
 
 
-
-
-### Research question 
-
-Does a mlb team's key pitching statistics predict their win totals? If so, which pitching metric, ERA, Strikeouts, WHIP, or FIP provide the best predictor for wins? 
-
-
-### Cases
-
-The data above consists of each MLB team's wins, losses, ERA, SO, WHIP, and FIP for the past 20 MLB seasons from 1998 to 2017. The cutoff year of 1998 was chosen since that was the last year of MLB expansion. Thus, there are 600 cases.
-
-### Data Collection
-
-Data was collected from the website FanGraphs.com. For the purpose of this academic exercise, I purchased a year's membership to the site and I was able to download the datasets needed for this project.
-
-### Type of study 
-
-The data is observational.  Statistics are compiled from 30 teams over 20 years--1998 to 2018
-
-
-
-### Data Source 
-
-Fangraphs.com is website operated by FanGraphs, Inc. Fangraphs compiles historical statistical data for the entire history of Major League Baseball. In addition, it creates and records advanced baseball metrics outside of the established statistics. FanGraphs is well established as a chronicler and compiler of baseball statistics. It has parternership deals with ESPN and SB Nation. Link to website: [FanGraphs.com](https://www.fangraphs.com/) [Wikipedia](https://en.wikipedia.org/wiki/Fangraphs)
-
-
-
-### Dependent Variable
-
-There are two response variables. One is Wins which is numeric (quantative variable), and the other is Record which is qualitative.
-
-
-
-### Independent Variable
-
-The independent variables are ERA, Strikeouts("SO"), Walks, Hits to Innings Pitched ("WHIP), Fielded Independent Pitching ("FIP") which are all numeric.  The qualitative variable is League.
+In MLB, there are traditional pitching statistics and more advanced statistics.  
 
 
 ```{r}
 describe(mlb_df$ERA)
 ```
+
+```{r}
+ggplot(mlb_df, aes(x=ERA)) + geom_histogram(bins=20,
+                 col="white", 
+                 fill="red") + labs(title="Histogram for ERA") +
+                                  labs(x="Earned Run Average", y="Count")
+```
+
+
+
+
+
+
+
+
+
+
+
 ```{r}
 describe(mlb_df$SO)
 ```
@@ -254,19 +236,10 @@ describe(mlb_df$FIP)
 table(mlb_df$Record, useNA='ifany')
 ```
 
-```{r}
-ggplot(mlb_df, aes(x=W)) + geom_histogram(bins=15,
-                 col="blue", 
-                 fill="orange") + labs(title="Histogram for Wins", align="center") +
-                                  labs(x="Wins", y="Count")
-```
 
 
 ```{r}
-ggplot(mlb_df, aes(x=ERA)) + geom_histogram(bins=20,
-                 col="white", 
-                 fill="red") + labs(title="Histogram for ERA") +
-                                  labs(x="Earned Run Average", y="Count")
+
 ```
 
 

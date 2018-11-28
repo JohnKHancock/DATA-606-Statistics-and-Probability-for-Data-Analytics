@@ -1,0 +1,22 @@
+Team|Name of the MLB Team
+W|Number of Wins
+ERA|Team Earned Run Average
+H|Number of Hits Allowed by Team
+R|Number of Runs Allowed by Team
+ER|Earned Runs Allowed by Team
+HR|Home Runs Allowed by Team
+BB|Walks Allowed by Team
+SO|Strikeouts by Team
+KsPer9|Number of Strikeouts per 9 innings
+BBper9|Number of Walks per 9 innings
+KperBB|Strikeouts per Walks
+Hper9|Hits allowed per 9 innings
+HRper9|Home Runs per 9 innings
+AVG|Batting average allowed by Team
+WHIP|Walks plus Hits per innings pitched
+BABIP|The rate at which the pitcher allows a hit when the ball is put in play, calculated as (H-HR)/(AB-K-HR+SF)
+LOB_pct|Percentage of pitcher?s own base runners that they strand over the course of a season Not equal to the LOB column in the box score
+FIP|An estimate of a pitcher?s ERA based on strikeouts, walks/HBP, and home runs allowed, assuming league average results on balls in play
+RAR|Runs above replacement level The number of runs a player has been worth to his team compared to a freely available player based on FIP
+K_pct|Frequency with which the pitcher has struck out a batter, calculated as strikeouts divided by total batters faced
+BB_pct|Frequency with which the pitcher has issued a walk, calculated as walks divided by total batters faced
